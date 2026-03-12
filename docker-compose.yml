@@ -4,8 +4,6 @@ services:
   app:
     build: .
     container_name: laravel_app
-    volumes:
-      - .:/var/www
     networks:
       - laravel
 
@@ -14,8 +12,6 @@ services:
     container_name: laravel_nginx
     ports:
       - "8081:80"
-    volumes:
-      - .:/var/www
     networks:
       - laravel
 
