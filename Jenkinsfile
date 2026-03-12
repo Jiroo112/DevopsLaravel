@@ -19,8 +19,8 @@ node {
 
     stage('Deploy') {
         sh '''
-            docker-compose -f $WORKSPACE/docker-compose.yml down || true
-            docker-compose -f $WORKSPACE/docker-compose.yml up -d --build
+            docker compose -f $WORKSPACE/docker-compose.yml down || true
+            docker compose -f $WORKSPACE/docker-compose.yml up -d --build
             docker exec laravel_app php artisan migrate --force
         '''
     }
