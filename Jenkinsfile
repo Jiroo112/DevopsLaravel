@@ -17,4 +17,13 @@ node {
         }
     }
 
+    stage('Deploy') {
+        sh '''
+            cd /mnt/c/laragon/www/devops
+            docker-compose down
+            docker-compose up -d --build
+            docker exec laravel_app php artisan migrate --force
+        '''
+    }
+
 }
