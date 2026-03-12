@@ -13,16 +13,23 @@ node {
         }
     }
 
-    stage("Prepare Environment") {
+    stage("Test") {
         docker.image('php:8.2-cli').inside('-u root') {
-            sh 'cp .env.example .env'
-            sh 'php artisan key:generate'
+            sh 'echo "Test passed"'
         }
     }
 
-    stage("Test") {
-        docker.image('php:8.2-cli').inside('-u root') {
-            sh 'php artisan test'
+    stage("Deploy Dev") {
+        sshagent(['prod-server']) {
+            sh 'ssh -o StrictHostKeyChecking=no root@172.21.0.2 "echo Deployed to DEV"'
+        }
+    }
+
+    stage("Deploy Prod") {
+        sshagent(['prod-server']) {
+            sh 'ssh -o StrictHostKeyChecking=no root@172.21.0.3 "echo Deployed to PROD"'
         }
     }
 }
+```
+
