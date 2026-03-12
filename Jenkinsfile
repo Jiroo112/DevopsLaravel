@@ -22,7 +22,7 @@ node {
             docker compose -f $WORKSPACE/docker-compose.yml down --remove-orphans
             docker rm -f laravel_mysql laravel_app laravel_nginx || true
             docker compose -f $WORKSPACE/docker-compose.yml up -d --build
-            sleep 5
+            sleep 30
             docker exec laravel_app php artisan migrate --force
         '''
     }
